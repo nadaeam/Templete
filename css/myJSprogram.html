@@ -1,0 +1,76 @@
+<html>
+    <head>
+<style>
+#shape{
+    height:200 ;
+    width: 200;
+    background-color: red;
+    display: none;
+    position:relative;
+    top:100px;
+    left:200px;
+}
+body{
+    font-family:sans-serif
+}
+.bold{
+    font-weight: bold;
+}
+</style>
+    </head>
+    <body>
+        <h1>Test Your Reaction </h1>
+        <p>Click on the boxes as quickly as you can</p>
+        <p class="bold">Time Taken : <span id="time"></span></p>
+        <div id="shape"></div>
+        
+        <script>
+            //time being measured when the page is loaded 
+            var start=new Date().getTime();
+            function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+            //function to make shape appear after 
+            function makeShapeAppear(){
+                var top=Math.random()*400; // to get random position from the top between  0 and 400px(random positon vertically)
+                var left=Math.random()*400; // random position horizantlly 
+                var width=(Math.random()*200)+100; // to not be very small  that we cant see it
+                if (Math.random()>0.5){
+                    document.getElementById("shape").style.borderRadius = "50%";
+                }
+                else{
+                    document.getElementById("shape").style.borderRadius="0"
+                }
+                document.getElementById("shape").style.width=width+"px";
+                document.getElementById("shape").style.height=width+"px";
+                document.getElementById("shape").style.left=left+"px";
+                document.getElementById("shape").style.top=top +"px"
+                document.getElementById("shape").style.display="block";
+                document.getElementById("shape").style.backgroundColor=getRandomColor();
+                var start=new Date().getTime();
+
+            }
+            
+            function appearAfterDelay(){
+                setTimeout(makeShapeAppear,Math.random()*2000);// it will show the shape and between 0 to 2 seconds 
+            }
+appearAfterDelay();
+            document.getElementById("shape").onclick=function(){
+
+                document.getElementById("shape").style.display="none";
+
+                 // when we clicked we want a new time 
+                 var end=new Date().getTime();
+                var Timetaken=(end-start)/1000;// divided by 1000 to be by second , coz it's with millisecond 
+                document.getElementById("time").innerHTML=Timetaken+"second";
+                appearAfterDelay();// when user clicked then the shape will appear
+            }
+            </script>
+    </body>
+</html>
